@@ -1,0 +1,54 @@
+[
+  {
+    "id": 2990,
+    "title": "Border Fragments",
+    "date_start": 100,
+    "date_display": "100 BCE–200 CE",
+    "artist_display": "Nasca\nSouth coast, Peru",
+    "thumbnail": null,
+    "image_id": null,
+    "color": null
+  },
+  {
+    "id": 51719,
+    "title": "Winter: Cat on a Cushion",
+    "thumbnail": {
+      "width": 2928,
+      "height": 2250,
+      "alt_text": "A work made of lithograph in 6 colors (red, ochre, yellow, black, gray-brown, brown) from two stones, with scraping on stone, on ivory wove paper."
+    },
+    "date_start": 1909,
+    "date_display": "1909",
+    "artist_display": "Théophile-Alexandre Steinlen\nFrench, born Switzerland, 1859-1923",
+    "color": { "h": 5, "l": 59, "s": 46, "percentage": 0.41628223716005447, "population": 2274 },
+    "image_id": "e8e67721-bbb1-d007-82bd-c430ea73db70"
+  },
+  {
+    "id": 5522,
+    "title": "Cat Coffin",
+    "thumbnail": {
+      "width": 1500,
+      "height": 2250,
+      "alt_text": "A work made of wood and plaster."
+    },
+    "date_start": -664,
+    "date_display": "Late Period-Ptolemaic Period (664–32 BCE)",
+    "artist_display": "Egyptian",
+    "color": { "h": 223, "l": 47, "s": 6, "percentage": 0.0979937077724483, "population": 1045 },
+    "image_id": "07b26469-589f-e3e0-dd58-be1d4daad30d"
+  },
+  {
+    "id": 9372,
+    "title": "The Large Cat",
+    "thumbnail": {
+      "width": 3000,
+      "height": 2305,
+      "alt_text": "A work made of engraving on ivory paper."
+    },
+    "date_start": 1657,
+    "date_display": "1657",
+    "artist_display": "Cornelis Visscher \nDutch, c. 1629-1658",
+    "color": { "h": 47, "l": 54, "s": 47, "percentage": 0.00036668921805357694, "population": 2 },
+    "image_id": "86706756-2cf8-6a7c-58cc-90efaa4db124"
+  }
+]
