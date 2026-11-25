@@ -97,3 +97,32 @@ img {
   font-size: 13px;
   color: #666;
 }
+
+.artwork {
+  max-width: 800px;
+}
+
+.artwork-img {
+  margin: 12px 0;
+  max-width: 100%;
+}
+
+.artwork-author {
+  margin: 0 0 12px;
+  color: #555;
+}
+
+.artwork-meta {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 4px 16px;
+  margin: 0 0 16px;
+}
+
+.artwork-meta dt {
+  font-weight: 600;
+}
+
+.artwork-meta dd {
+  margin: 0;
+}
