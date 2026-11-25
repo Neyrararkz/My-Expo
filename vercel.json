@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    { "source": "/aic/:path*", "destination": "https://api.artic.edu/:path*" },
+    { "source": "/aicimg/:path*", "destination": "https://www.artic.edu/:path*" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

@@ -1,16 +1,51 @@
-# React + Vite
+# Своя выставка
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Виртуальная галерея на открытом API Чикагского института искусств. Пользователь ищет работы по теме, открывает карточку, собирает выставку до 12 работ, меняет их порядок и делится выставкой по ссылке.
 
-Currently, two official plugins are available:
+Студент: Кабиденова Элеонора, 242P
+Номер в журнале (вариант): 1
+Уровень: базовый
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Вариант 1
 
-## React Compiler
+- Тема поиска по умолчанию: cats
+- Цвет по умолчанию: red
+- Задача варианта: кнопка «Хронологически» на странице выставки сортирует работы по году создания (поле date_start). Работы без года уходят в конец.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Что умеет приложение
 
-## Expanding the ESLint configuration
+- `/` поиск с пагинацией до maxPage и фильтром по цвету
+- `/artwork/:id` карточка работы и кнопка «В выставку»
+- `/expo` название, порядок (↑ ↓), «Убрать», «Хронологически», «Скопировать ссылку»
+- `/expo/view?title=…&ids=…` просмотр выставки по ссылке одним запросом `/artworks?ids=…`
+- 404 для неизвестных адресов
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Выставка меняется через useReducer и сохраняется в localStorage. Запросы к API идут через кеш (Map) и очередь не чаще 1 в секунду. Ответ 429 показывается сообщением «Слишком много запросов, подождите минуту».
+
+## Журнал данных
+
+| id | Что особенного | Где найдено |
+|---|---|---|
+| 2990 | image_id, thumbnail и color равны null: нет картинки, нужна заглушка | Network, search, data[5] |
+| 5522 | date_start = -664: отрицательный год, при сортировке идёт первым | Network, search, data[18] |
+| 9372 | artist_display = "Cornelis Visscher \nDutch…": пробел перед переводом строки, имя автора нужно обрезать | Network, search, data[19] |
+
+Дополнительно:
+
+- У работы 16227 date_start = 1957, а date_display = «1962». Сортировка идёт по date_start, показывается date_display.
+- В ответе поиска total = 133375, total_pages = 5558, но API отдаёт не больше 10 000 результатов, поэтому maxPage(133375, 24) = 416.
+- Базовый адрес картинок берётся из config.iiif_url, в коде не зашит.
+
+## Как запустить
+
+```bash
+npm install
+npm run dev
+npx vitest run
+```
+
+В режиме разработки запросы идут через прокси Vite (`/aic` для API и `/aicimg` для картинок), потому что прямые запросы из браузера с localhost блокируются. Настройка в `vite.config.js`.
+
+## Тесты
+
+Свои тесты лежат в `src/lib/art.test.js` и работают на данных из `src/lib/fixtures/sample.json`.
