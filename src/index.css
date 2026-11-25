@@ -73,3 +73,27 @@ img {
   justify-content: center;
   margin: 16px 0;
 }
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.toolbar input {
+  flex: 1 1 200px;
+  min-width: 0;
+  padding: 6px 8px;
+}
+
+.card-title {
+  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.card-author {
+  font-size: 13px;
+  color: #666;
+}

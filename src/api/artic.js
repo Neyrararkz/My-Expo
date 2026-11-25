@@ -1,4 +1,9 @@
-const BASE = "https://api.artic.edu/api/v1";
+const BASE = "/aic/api/v1";
+const imgBase = (json) =>
+  (json.config?.iiif_url ?? "https://www.artic.edu/iiif/2").replace(
+    "https://www.artic.edu",
+    "/aicimg"
+  );
 const INTERVAL_MS = 1000;
 const LIST_FIELDS = "id,title,artist_display,date_display,date_start,image_id,thumbnail,color";
 const FULL_FIELDS = "id,title,artist_display,date_display,date_start,medium_display,department_title,image_id,thumbnail,color";
@@ -21,7 +26,8 @@ async function fetchJson(url) {
   let res;
   try {
     res = await fetch(url);
-  } catch {
+  } catch (e) {
+    console.error("fetch failed:", url, e);
     throw new ApiError("Не удалось загрузить данные. Проверьте соединение", 0);
   }
   if (res.status === 429) {
@@ -68,7 +74,7 @@ export async function searchArtworks(q, page = 1, limit = 24) {
     data: json.data ?? [],
     total: json.pagination?.total ?? 0,
     limit: json.pagination?.limit ?? limit,
-    iiifUrl: json.config?.iiif_url ?? "https://www.artic.edu/iiif/2",
+    iiifUrl: imgBase(json),
   };
 }
 
@@ -76,13 +82,13 @@ export async function getArtwork(id) {
   const json = await request(`${BASE}/artworks/${id}?fields=${FULL_FIELDS}`);
   return {
     data: json.data,
-    iiifUrl: json.config?.iiif_url ?? "https://www.artic.edu/iiif/2",
+    iiifUrl: imgBase(json),
   };
 }
 
 export async function getArtworks(ids) {
   if (!ids || ids.length === 0) {
-    return { data: [], iiifUrl: "https://www.artic.edu/iiif/2" };
+    return { data: [], iiifUrl: "/aicimg/iiif/2" };
   }
   const params = new URLSearchParams({
     ids: ids.join(","),
@@ -93,6 +99,6 @@ export async function getArtworks(ids) {
   const byId = new Map((json.data ?? []).map((w) => [w.id, w]));
   return {
     data: ids.map((id) => byId.get(id)).filter(Boolean),
-    iiifUrl: json.config?.iiif_url ?? "https://www.artic.edu/iiif/2",
+    iiifUrl: imgBase(json),
   };
 }
