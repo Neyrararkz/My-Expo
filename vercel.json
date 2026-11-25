@@ -1,7 +1,7 @@
 {
   "rewrites": [
-    { "source": "/aic/:path*", "destination": "https://api.artic.edu/:path*" },
-    { "source": "/aicimg/:path*", "destination": "https://www.artic.edu/:path*" },
+    { "source": "/aic/:path*", "destination": "/api/proxy?host=api&path=:path*" },
+    { "source": "/aicimg/:path*", "destination": "/api/proxy?host=img&path=:path*" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
