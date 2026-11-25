@@ -126,3 +126,42 @@ img {
 .artwork-meta dd {
   margin: 0;
 }
+
+.expo-title-label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.expo-title {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  margin-top: 4px;
+  padding: 6px 8px;
+  font-size: 16px;
+}
+
+.expo-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.expo-pos {
+  font-weight: 700;
+}
+
+.expo-controls {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.expo-missing {
+  min-height: 120px;
+}
+
+.card-date {
+  font-size: 12px;
+  color: #888;
+}

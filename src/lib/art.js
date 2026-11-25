@@ -51,3 +51,19 @@ export function iiifUrl(iiifBase, imageId, width = 843) {
   if (!iiifBase || !imageId) return null;
   return `${iiifBase}/${imageId}/full/${width},/0/default.jpg`;
 }
+
+export function sortIdsByDateStart(ids, worksById) {
+  const year = (id) => {
+    const y = worksById?.[id]?.date_start;
+    return typeof y === "number" && Number.isFinite(y) ? y : null;
+  };
+  return ids
+    .map((id, index) => ({ id, index, y: year(id) }))
+    .sort((a, b) => {
+      if (a.y === null && b.y === null) return a.index - b.index;
+      if (a.y === null) return 1;
+      if (b.y === null) return -1;
+      return a.y - b.y || a.index - b.index;
+    })
+    .map((item) => item.id);
+}

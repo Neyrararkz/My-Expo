@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import sample from "./fixtures/sample.json";
 import {
-  artistName, hueBucket, maxPage, encodeExpo, decodeExpo, iiifUrl, DEFAULT_TITLE,
+  artistName, hueBucket, maxPage, encodeExpo, decodeExpo, iiifUrl, sortIdsByDateStart, DEFAULT_TITLE,
 } from "./art.js";
 
 const byId = (id) => sample.find((w) => w.id === id);
@@ -78,5 +78,24 @@ describe("iiifUrl", () => {
   });
   it("без image_id даёт null (работа 2990)", () => {
     expect(iiifUrl("https://www.artic.edu/iiif/2", byId(2990).image_id)).toBeNull();
+  });
+});
+
+describe("sortIdsByDateStart", () => {
+  const worksById = Object.fromEntries(sample.map((w) => [w.id, w]));
+
+  it("сортирует по возрастанию года, отрицательные годы первыми", () => {
+    expect(sortIdsByDateStart([51719, 5522, 2990, 9372], worksById)).toEqual([5522, 2990, 9372, 51719]);
+  });
+  it("работы без данных уходят в конец с сохранением порядка", () => {
+    expect(sortIdsByDateStart([999, 51719, 888, 5522], worksById)).toEqual([5522, 51719, 999, 888]);
+  });
+  it("не меняет исходный массив", () => {
+    const ids = [51719, 5522];
+    sortIdsByDateStart(ids, worksById);
+    expect(ids).toEqual([51719, 5522]);
+  });
+  it("пустой список даёт пустой список", () => {
+    expect(sortIdsByDateStart([], worksById)).toEqual([]);
   });
 });

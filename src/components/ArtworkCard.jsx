@@ -27,6 +27,8 @@ export default function ArtworkCard({ work, iiifBase }) {
       </div>
       <div className="card-title">{work.title}</div>
       <div className="card-author">{artistName(work.artist_display) || "Автор неизвестен"}</div>
+      <div className="card-author">{artistName(work.artist_display) || "Автор неизвестен"}</div>
+      {work.date_display && <div className="card-date">{work.date_display}</div>}
     </Link>
   );
 }
